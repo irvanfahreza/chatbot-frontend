@@ -1,0 +1,51 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <div class="header-info">
+      <div class="avatar bot-avatar">🤖</div>
+      <div class="title">
+        <h2 class="name">Irvan</h2>
+        <span class="subtitle">Intelligent Responsive Virtual Assistant</span>
+        <span class="status">Online</span>
+      </div>
+    </div>
+    <button class="reset-btn" (click)="resetSession()" title="Reset Session">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+        <path d="M3 3v5h5"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="chat-messages" #chatScroll>
+    <div class="message-wrapper" *ngFor="let msg of messages"
+      [ngClass]="{'user-wrapper': msg.role === 'user', 'bot-wrapper': msg.role === 'assistant'}">
+      <div *ngIf="msg.role === 'assistant'" class="avatar bot-avatar-small">🤖</div>
+      <div class="message bubble" [ngClass]="msg.role">
+        <p>{{ msg.message }}</p>
+        <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+      </div>
+    </div>
+
+    <div class="message-wrapper bot-wrapper" *ngIf="isLoading">
+      <div class="avatar bot-avatar-small">🤖</div>
+      <div class="message bubble bot typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type your message..."
+      [disabled]="isLoading" />
+    <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim() || isLoading">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    </button>
+  </div>
+</div>
