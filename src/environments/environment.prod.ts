@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://irvan-ai.up.railway.app/api/chat'
+    apiUrl: 'https://chatbot-backend-production-788a.up.railway.app'
 
 };
